@@ -1,3 +1,6 @@
+import 'dart:ffi';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 
@@ -119,7 +122,32 @@ class _MyAppState extends State<MyApp> {
         ],
       );
     }
-    return Text('two');
+    if (choice == 3) {
+      return ListView(
+        children: <Widget>[
+          Container(
+            child: null,
+          )
+        ],
+      );
+    }
+    if (choice == 1) {
+      return Profile();
+    }
+    return Container(
+      child: Center(
+        child: Text(
+          'You are in trouble',
+          style: TextStyle(fontSize: 28),
+        ),
+      ),
+    );
+  }
+
+  void _changeView(int index) {
+    setState(() {
+      choice = index;
+    });
   }
 
   @override
@@ -152,13 +180,51 @@ class _MyAppState extends State<MyApp> {
               title: Text('Business'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.school),
-              title: Text('School'),
+              icon: Icon(Icons.face),
+              title: Text('Account'),
             ),
           ],
           currentIndex: choice,
           selectedItemColor: Colors.amber,
-          // onTap: null,
+          onTap: _changeView,
+        ),
+      ),
+    );
+  }
+}
+
+class Profile extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Card(
+        child: Column(
+          children: [
+            Card(
+              child: Center(
+                child: Card(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(24.0),
+                    child: Image.asset(
+                      "assets/appimages/placeholder.120.png",
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24.0),
+                  ),
+                  margin: EdgeInsets.all(30.0),
+                  elevation: 5.0,
+                ),
+              ),
+              elevation: 16.0,
+            ),
+            Card(
+              child: Row(
+                children: [],
+              ),
+            )
+          ],
         ),
       ),
     );
